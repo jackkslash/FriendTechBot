@@ -8,9 +8,7 @@ import { EmbedBuilder } from "discord.js";
 
 export async function sharebuyzero(client: any) {
   // Configure the provider using an Ethereum node URL
-  const provider = new ethers.providers.JsonRpcProvider(
-    "https://mainnet.base.org"
-  );
+  const provider = new ethers.providers.JsonRpcProvider(config.BASERPC);
 
   const zeroshare = client.channels.cache.get(config.ZEROSHARECHANNELID);
   const zeroshare10 = client.channels.cache.get(config.ZEROSHARE10CHANNELID);
@@ -64,7 +62,7 @@ export async function sharebuyzero(client: any) {
                   return res.json();
                 }
                 if (retries > 0) {
-                  console.log("fetch retry " + retries);
+                  console.log("fetch retry " + retries + "url: " + url);
                   await sleep(1500);
                   return fetchPlus(url, options, retries - 1);
                 }
@@ -74,7 +72,7 @@ export async function sharebuyzero(client: any) {
           let data = await fetchPlus(
             "https://prod-api.kosetto.com/users/" + subject.args.subject,
             {},
-            3
+            5
           );
 
           fetch("https://nitter.cz/" + data.twitterUsername)
@@ -99,6 +97,7 @@ export async function sharebuyzero(client: any) {
               const embed = new EmbedBuilder()
                 .setTitle(data.twitterUsername + " bought their own share")
                 .setURL("https://www.friend.tech/rooms/" + to)
+                .setThumbnail(data.twitterPfpUrl)
                 .setTimestamp();
 
               embed.addFields(
@@ -135,9 +134,12 @@ export async function sharebuyzero(client: any) {
                 Number(twitterUserFollowCount) >= 50000 &&
                 notable == false
               ) {
-                zeroshare50.send({ content: "@everyone", embeds: [embed] });
+                zeroshare50.send({ embeds: [embed] });
               } else if (notable == true) {
-                zeroshareNotable.send({ embeds: [embed] });
+                zeroshareNotable.send({
+                  content: "@everyone",
+                  embeds: [embed],
+                });
               } else if (Number(twitterUserFollowCount) > 1) {
                 zeroshare.send({ embeds: [embed] });
               } else {
@@ -150,6 +152,7 @@ export async function sharebuyzero(client: any) {
               const embed = new EmbedBuilder()
                 .setTitle(data.twitterUsername + " bought their own share")
                 .setURL("https://www.friend.tech/rooms/" + to)
+                .setThumbnail(data.twitterPfpUrl)
                 .setTimestamp();
 
               embed.addFields(

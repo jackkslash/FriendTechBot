@@ -128,7 +128,11 @@ export async function sharebuyzero(client: any) {
                 notable = true;
               }
 
-              if (Number(twitterUserFollowCount) >= 10000 && notable == false) {
+              if (
+                Number(twitterUserFollowCount) >= 10000 &&
+                Number(twitterUserFollowCount) < 50000 &&
+                notable == false
+              ) {
                 zeroshare10.send({ embeds: [embed] });
               } else if (
                 Number(twitterUserFollowCount) >= 50000 &&

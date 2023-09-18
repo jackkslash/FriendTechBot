@@ -5,6 +5,7 @@ import { sleep } from "../util/utils";
 import config from "../config";
 import { notableNames } from "./notableList";
 import { EmbedBuilder } from "discord.js";
+import { fetchPlus } from "../util/fetchplus";
 
 export async function sharebuyzero(client: any) {
   // Configure the provider using an Ethereum node URL
@@ -55,19 +56,6 @@ export async function sharebuyzero(client: any) {
           //     "https://prod-api.kosetto.com/users/" + subject.args.subject
           //   );
           await sleep(1500);
-          const fetchPlus: any = (url: any, options = {}, retries: any) =>
-            fetch(url, options)
-              .then(async (res) => {
-                if (res.ok) {
-                  return res.json();
-                }
-                if (retries > 0) {
-                  console.log("fetch retry " + retries + "url: " + url);
-                  await sleep(1500);
-                  return fetchPlus(url, options, retries - 1);
-                }
-              })
-              .catch((error) => console.error(error.message));
 
           let data = await fetchPlus(
             "https://prod-api.kosetto.com/users/" + subject.args.subject,

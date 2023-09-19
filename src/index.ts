@@ -2,6 +2,7 @@ import { Client, GatewayIntentBits } from "discord.js";
 import * as commandsModules from "./commands";
 import config from "./config";
 import { sharebuyzero } from "./scripts/sharebuy";
+import { newUsers } from "./scripts/newuser";
 
 console.log("Bot is starting...");
 
@@ -12,6 +13,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.once("ready", async () => {
   console.log("Alive");
   sharebuyzero(client);
+  //newUsers(client, 1);
 });
 
 // bot slash commands

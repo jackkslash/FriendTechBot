@@ -84,8 +84,10 @@ export async function newUsers(client: any, userindex: number) {
             content: "@everyone",
             embeds: [embed],
           });
-        } else {
+        } else if (Number(twitterUserFollowCount) > 1) {
           newuserChannel.send({ embeds: [embed] });
+        } else {
+          console.log("not enough followers");
         }
       })
       .catch(function (err) {

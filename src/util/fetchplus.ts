@@ -1,6 +1,11 @@
 import { sleep } from "./utils";
 
-export const fetchPlus: any = (url: any, options = {}, retries: any) =>
+export const fetchPlus: any = (
+  url: any,
+  options = {},
+  retries: number,
+  sleepTime: number
+) =>
   fetch(url, options)
     .then(async (res) => {
       if (res.ok) {
@@ -8,7 +13,7 @@ export const fetchPlus: any = (url: any, options = {}, retries: any) =>
       }
       if (retries > 0) {
         console.log("fetch retry " + retries + "url: " + url);
-        await sleep(1500);
+        await sleep(sleepTime);
         return fetchPlus(url, options, retries - 1);
       }
     })

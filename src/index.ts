@@ -12,8 +12,8 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once("ready", async () => {
   console.log("Alive");
-  sharebuyzero(client);
-  newUsers(client, 1);
+  // sharebuyzero(client);
+  // newUsers(client, 1);
 });
 
 // bot slash commands

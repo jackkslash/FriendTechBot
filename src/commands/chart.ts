@@ -9,14 +9,32 @@ export const data = new SlashCommandBuilder()
   .setDescription("Charts for FT accounts by wallet address")
   .addStringOption((option) =>
     option
-      .setName("wallet")
-      .setDescription("Wallet Address of FT user")
+      .setName("user")
+      .setDescription("Wallet Address or username of FT user")
       .setRequired(true)
   );
 
 export async function execute(interaction: any) {
-  const wallet = interaction.options.getString("wallet");
+  let wallet: any = null;
+  const user = interaction.options.getString("user");
   interaction.deferReply();
+
+  if (user.split(0, 2) == "0x") {
+    wallet = user;
+  } else {
+    const search = await fetch(
+      "https://prod-api.kosetto.com/search/users?username=" + user,
+      {
+        headers: {
+          Authorization: config.FTAUTHTOKEN,
+        },
+      }
+    );
+    const res = await search.json();
+    console.log(res.users[0]);
+    wallet = res.users[0];
+  }
+
   const browser = await puppeteer.launch();
 
   // Create a new page/tab

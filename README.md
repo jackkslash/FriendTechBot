@@ -51,3 +51,10 @@ npm run deploy
 ```
 
 If commands need to be deployed separately, run the command mentioned above.
+
+## Functionality
+
+- Shows new users sign ups
+- Shows new users buying 0 cost key
+- Chart commnad for users keys
+- Stats commnad for users on FT

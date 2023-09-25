@@ -13,6 +13,7 @@ const {
   ZEROSHARE50CHANNELID,
   BASERPC,
   FTAUTHTOKEN,
+  FTUSERID,
 } = process.env;
 
 if (
@@ -27,7 +28,8 @@ if (
   !ZEROSHARE50CHANNELID ||
   !ZEROSHARENOTABLECHANNELID ||
   !BASERPC ||
-  !FTAUTHTOKEN
+  !FTAUTHTOKEN ||
+  !FTUSERID
 ) {
   throw new Error("Missing .env vars");
 }
@@ -45,6 +47,7 @@ const config: Record<string, string> = {
   ZEROSHARENOTABLECHANNELID,
   BASERPC,
   FTAUTHTOKEN,
+  FTUSERID,
 };
 
 export default config;
